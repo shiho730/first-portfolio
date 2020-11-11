@@ -1,0 +1,32 @@
+  <div class="container">
+    <div class="row">
+    </br>
+      <div class="col-md-2 col-md-offset-3" style="background-color: #EEEEEE;">
+        <h4 class="text-center">管理者ログイン</h4>
+      </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= render "layouts/error_messages", resource: resource %>
+            <div class="col-md-9 col-md-offset-3">
+              <table class="table">
+                <div class="form-group">
+                  <tr>
+                    <th class="table-noborder" width="120">管理者名</th>
+                    <td class="table-noborder" ><%= f.text_field :name, autofocus: true, id:"form" %></td>
+                  </tr>
+                </div>
+                <div class="form-group">
+                  <tr>
+                    <th class="table-noborder">パスワード</th>
+                    <td class="table-noborder"><%= f.password_field :password, autocomplete: "current-password", id:"form" %></td>
+                  </tr>
+                </div>
+              </table>
+            </div>
+
+            <div class="col-md-12 text-center" >
+              <%= f.submit "ログイン", class: "btn btn-primary" %></td>
+            </div>
+      <% end %>
+    </div>
+  </div>
+  
