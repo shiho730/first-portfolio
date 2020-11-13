@@ -30,7 +30,7 @@ https://docs.google.com/spreadsheets/d/1di1H_dg34ux0Sj8JagwDPw7rOeXa1IwpqpmUTvqf
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
-- 仮想環境：Vagrant,VirtualBox
+- IDE:Cloud9
 
 ## 使用素材
 - https://pixabay.com/ja/
