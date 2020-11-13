@@ -1,0 +1,104 @@
+<% provide(:title, "登録情報編集") %>
+<div class="container">
+	<%= form_with(model:@customer, url:customers_path, local: true ,method: :patch) do |f| %>
+		<div id="error">
+        <%= render "layouts/error_messages", resource: @customer %>
+     </div>
+		<div class="row">
+			<div class="col-md-2 col-md-offset-2">
+				<h3 class="text-center", style="background-color: #EEEEEE;">登録情報編集</h3>
+			</div>
+			<div class="col-md-11">
+
+				<table class="table", style="margin-bottom: 0;">
+					</br>
+					<tr>
+						<td class="table-noborder", width="200px">
+							<%= f.label :"名前" %>
+						</td>
+						<td class="table-noborder", width="55">(姓)</td>
+						<td class="table-noborder", width="200px">
+							<%= f.text_field :last_name %>
+						</td>
+						<td class="table-noborder", width="55">(名)</td>
+						<td class="table-noborder">
+							<%= f.text_field :first_name %>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="table-noborder">
+							<%= f.label :"フリガナ" %>
+						</td>
+						<td class="table-noborder">(セイ)</td>
+						<td class="table-noborder">
+							<%= f.text_field :kana_last_name %>
+						</td>
+						<td class="table-noborder">(メイ)</td>
+						<td class="table-noborder">
+							<%= f.text_field :kana_first_name %>
+						</td>
+					</tr>
+				</table>
+
+				<table class="table">
+					<tr>
+						<td class="table-noborder", width="200px">
+							<%= f.label :"メールアドレス" %>
+						</td>
+						<td class="table-noborder", width="55"></td>
+						<td class="table-noborder">
+							<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="table-noborder">
+							<%= f.label :"郵便番号" %>
+						</td>
+						<td class="table-noborder"></td>
+						<td class="table-noborder">
+							<%= f.text_field :zip_code %>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="table-noborder">
+							<%= f.label :"住所" %>
+						</td>
+						<td class="table-noborder"></td>
+						<td class="table-noborder">
+							<%= f.text_field :address, :size=>"56px" %>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="table-noborder">
+							<%= f.label :"電話番号(ハイフンなし)" %>
+						</td>
+						<td class="table-noborder"></td>
+						<td class="table-noborder">
+							<%= f.text_field :phone_number %>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="actions col-md-4 col-md-offset-2">
+				<%= f.submit "編集内容を保存する", class: "btn btn-primary save col-xs-6" %>
+			</div>
+
+			<div class="actions col-md-2">
+				<%= link_to '退会する', customers_quit_path, class: "glyphicon glyphicon-tint btn btn-danger"%>
+			</div>
+
+			<div class="col-xs-12">
+				<%= link_to "戻る", customers_path, class: "glyphicon glyphicon-home btn btn-info" %>
+			</div>
+		</div>
+
+	<% end %>
+</div>

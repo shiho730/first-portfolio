@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+  	<div class="col-md-2 col-md-offset-2" style="background-color: #EEEEEE;">
+      <h4 class="text-center">商品一覧</h4>
+    </div>
+    	<% if @orders.present? %>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<table class="table table-hover table-inverse">
+							<thead>
+								<tr>
+									<th>購入日時</th>
+									<th>購入者</th>
+									<th>注文個数</th>
+									<th>注文ステータス</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<% @orders.each do |order| %>
+								<tr>
+									<td><%= link_to admin_order_path(order.id) do %>
+										<%= order.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+									</td>
+									<% end %>
+									<td><%= order.customer.name%></td>
+									<td><%= order.order_total_amount %></td>
+									<td>
+										<% if order.status == "waiting" %>
+											入金待ち
+										<% elsif order.status == "paid" %>
+											入金確認
+										<% elsif order.status == "preparing" %>
+											発送準備中
+										<% elsif order.status == "sent" %>
+											発送済み
+										<% else %>
+											エラー
+										<% end %>
+									</td>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		  <% else %>
+		  	<p>注文履歴がありません</p>
+		  <% end %>
+	</div>
+</div>

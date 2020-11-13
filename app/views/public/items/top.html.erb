@@ -1,0 +1,34 @@
+<% provide(:title, "トップ") %>
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-2">
+			<%= render "genres_list", genres: @genres %>
+		</div>
+		<div class="col-md-10">
+			<div class="main-visual">
+				<div class="main-visual-content">
+					<p class="main-visual-text">
+						míllureからはじまる新たなstory<br>
+						先入観や大人の価値観から解き放たれた時、<br>
+            まだ知らない新たなstoryが始まる<br>
+            物語りの主人公はいつだってわたし<br>
+            mí × allure = míllure<br>
+					</p>
+				</div>
+			</div>
+		</div>
+  　</div>
+
+	<h2 class="toppage-head">top seller</h2>
+	<div class="row">
+			<!-- 売れている商品を入れる -->
+	<%= render "item_each", items: @items %>
+	<h2 class="toppage-head">new collection</h2>
+	<!--新しく追加されたアクセサリーを入れる-->
+	
+		<div class="col-xs-12">
+			<%= link_to "もっと見る", items_path, class: "btn-link  pull-right" %>
+		</div>
+	</div>
+</div>

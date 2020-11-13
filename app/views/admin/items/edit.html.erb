@@ -1,0 +1,75 @@
+<% if @item.errors.any? %>
+  <div id="error_explanation">
+    <h3><%= pluralize(@item.errors.count, "error") %> prohibited this obj from being saved:</h3>
+
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="container">
+	<div class="row">
+		<h2>商品編集</h2>
+
+		<%= form_with model:@item, url: admin_product_path, method: :patch, class: "form-horizontal", local: true do |f| %>
+
+		<div class="col-md-3">
+			<div class="field">
+					 	<%= attachment_image_tag(@item, :image_id, fallback: "no_image.jpg", size: "250x250") %>
+						<%= f.attachment_field :image_id, class: "user_image" %>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<br>
+			<br>
+				<div class="field form-group">
+					<label class="col-md-2 control-label" for="InputEmail">商品名</label>
+								<div class="col-md-8">
+					<%= f.text_field :name, class: "name col-md-10" %>
+					</div>
+				</div>
+
+				<div class="field form-group">
+					<label class="col-md-2 control-label" for="InputEmail">商品説明</label>
+								<div class="col-md-8">
+
+					<%= f.text_area :description, class: "discription col-md-10" %>
+					</div>
+				</div>
+
+				<div class="field form-group">
+					<label class="col-md-2 control-label" for="InputEmail">ジャンル</label>
+								<div class="col-md-8">
+					<%= f.collection_select(:genre_id, Genre.all, :id, :name, {},{class: "col-md-10"}) %>
+					</div>
+				</div>
+
+				<div class="field form-group">
+					<label class="col-md-2 control-label" for="InputEmail">税抜き価格</label>
+								<div class="col-md-8">
+					<%= f.text_field :price_excluding_tax, class: "tax col-md-10" %>
+					</div>
+				</div>
+
+				<div class="field form-group">
+					<label class="col-md-2 control-label" for="InputEmail">販売ステータス</label>
+								<div class="col-md-8">
+		      						<%= f.select :is_active, [['販売中', :Availble ],['売り切れ', :Invalid ]], {}, {class: "col-md-10"} %>
+		                        </div>
+				</div>
+
+				<div class="actions form-group" align="right">
+					<div class="col-md-offset-2 col-md-10">
+						<%= f.submit '編集完了', class:"btn btn-info btn-md" %>
+					</div>
+				</div>
+
+		</div>
+
+		<% end %>
+	</div>
+</div>
