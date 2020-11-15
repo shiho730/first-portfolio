@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2" style="background-color: #EEEEEE;">
+      <h4 class="text-center">注文履歴詳細</h4>
+    </div>
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<th class="table-noborder" width="150">購入者</th>
+					<td class="table-noborder"><%= @order.customer.name %></td>
+				</tr>
+				<tr>
+					<th class="table-noborder">配送先</th>
+					<td class="table-noborder">
+					  <%= @order.name_address %><br>
+					  <%= @order.name %>
+					</td>
+				</tr>
+				<tr>
+					<th class="table-noborder">支払方法</th>
+					<td class="table-noborder" align="left">
+					<% if @order.payment_method == "credit"  %>
+				        <%= "クレジットカード" %>
+				        <% else %>
+				        <%= "銀行振り込み" %>
+				        <% end %>
+					</td>
+				</tr>
+				<tr>
+					<th nowrap class="table-noborder">注文ステータス</th>
+					<td class="table-noborder" align="left">
+					    <%= form_with model: @order, url: admin_order_path do |f| %>
+
+              <%= f.select :status, [["入金待ち", "waiting"],["入金確認","paid"],["発送準備中","preparing"],["発送済み","sent"]] %>
+
+              <%= f.submit '更新', class: "btn btn-primary btn-md" %>
+              <% end %>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+　</div>
+
+  <div calss="row">
+    <div class="col-xs-9">
+      <h2 class="head-line title_h2 text-center"></h2>
+      <table class="table table-hover table-bordered table-condensed">
+        <thead>
+          <tr class="tablehead">
+            <th style="background-color: #EEEEEE;">商品名</th>
+            <th style="background-color: #EEEEEE;">単価（税込み）</th>
+            <th style="background-color: #EEEEEE;">数量</th>
+            <th style="background-color: #EEEEEE;">小計</th>
+            <th style="background-color: #EEEEEE;">制作ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_items.each do |order_item| %>
+            <tr>
+              <td>
+                <%= order_item.item.name %>
+              </td>
+              <td>
+                <%= order_item.price_including_tax %><br>
+              </td>
+              <td>
+                <%= order_item.amount %>
+              </td>
+              <td class="text-right">
+                <%= order_item.each_total_payment %>円
+              </td>
+              <td class="text-center">
+
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-3">
+      <table>
+        <tr>
+          <th class="gokei" width="150">商品合計</th>
+          <td> <%= @order.total_payment - @order.shipping_fee %>円</td>
+        </tr>
+
+        <tr>
+          <th class="gokei">送料</th>
+          <td> <%= @order.shipping_fee %>円</td>
+        </tr>
+
+        <tr>
+          <th class="gokei">請求合計金額</th>
+          <td> <%= @order.total_payment %>円</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

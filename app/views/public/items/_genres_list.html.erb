@@ -1,0 +1,14 @@
+<table class="table table-bordered">
+  <th class="genre-th">ジャンル</th>
+
+  <% genres.each do |f|%>
+    <% if f.is_active == "Availble" %>
+      <tr class="genre-tr">
+        <td class="genre-td">
+          <%# ジャンルが無効なら表示しない %>
+          <%= link_to f.name, genre_path(f.id) %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+</table>

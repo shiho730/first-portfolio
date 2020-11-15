@@ -1,0 +1,53 @@
+<!-- ジャンル検索 -->
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-2">
+			<%= render "genres_list", genres: @genres %>
+		</div>
+
+		<div id="product">
+
+			<div class="col-md-5">
+				</br>
+				<%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "400x200" %>
+			</div>
+
+			<div class="col-md-5">
+				</br>
+				<h3><%= @item.name %></h3></br>
+				<%= @item.discription %></br>
+				<h4>￥<%= @item.including_tax.to_s(:delimited) %>(税込)</h4>
+			</div>
+
+		</div>
+
+	</div>
+	<!--↓ログインしている場合のみカートに入れるフォームが表示される-->
+
+	<div class="row">
+		<% if customer_signed_in? %>
+
+			<% if @item.is_active == "Availble" %>
+
+				<%= form_with model:@cart_item, url: "/cart_items", method: :post, class: "form-horizontal", local: true do |f| %>
+					<div class="col-md-2 col-md-offset-7">
+						<%= f.hidden_field :item_id, value: params[:id] %>
+						<%= f.hidden_field :customer_id, value: current_customer.id %>
+						<%= f.select :quantity, {"1個": 1, "2個": 2, "3個": 3, "4個": 4, "5個": 5, "6個": 6, "7個": 7, "8個": 8, "9個": 9}, { include_blank: "個数選択"}, { class: "form-control" , required: true } %>
+					</div>
+
+					<div class="col-md-2">
+						<%= f.submit "カートに入れる", class: "btn btn-info" %>
+					</div>
+				<% end %>
+
+			<% else %>
+				<div class="col-md-5 col-md-offset-7">
+					申し訳ございません。</br>こちらの商品はただ今、品切れになっております。
+				</div>
+			<% end %>
+
+		<% end %>
+	</div>
+</div>

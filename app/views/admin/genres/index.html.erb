@@ -1,0 +1,69 @@
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2" style="background-color: #EEEEEE;">
+        <h4 class="text-center">ジャンル一覧・追加</h4>
+      </div>
+    </div>
+      </br>
+      </br>
+    <div class="row">
+      <div class="col-md-5 col-md-offset-1">
+        <% if @genre.errors.any? %>
+          <div class="alert-warning">
+            <div class="alert1">
+              <p><%= pluralize(@genre.errors.count, "error") %></p>
+            </div>
+                <ul>
+                  <% @genre.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+          </div>
+        <% end %>
+        <%= form_for(@genre, url:admin_genres_path) do |f| %>
+          <div class="form-group">
+            <%= f.label 'ジャンル'%>
+            <%= f.text_field :name %>
+            <%= f.radio_button :is_active, :Availble %>
+            <%= f.label '有効' %>
+            <%= f.radio_button :is_active, :Invalid %>
+            <%= f.label '無効' %>
+            <%= f.submit '追加', class:"btn btn-info btn-md" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    </br>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-1">
+        <table class=table>
+          <thead>
+            <tr style="background-color: #EEEEEE;">
+              <th>ジャンル</th>
+              <th>状態</th>
+              <th></th>
+            </tr>
+          </thead>
+            <tbody>
+              <% @genres.each do |genre| %>
+                <tr>
+                  <td width="170" height="50">
+                    <%= genre.name %>
+                  </td>
+                  <td width="100">
+                    <% if genre.is_active == "Availble"  %>
+                    <%= "有効"%>
+                    <% else %>
+                    <%= "無効" %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to "編集する",edit_admin_genre_path(genre.id), class:"btn btn-primary "%>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>

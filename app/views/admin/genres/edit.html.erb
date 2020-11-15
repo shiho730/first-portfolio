@@ -1,0 +1,36 @@
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2" style="background-color: #EEEEEE;">
+        <h4 class="text-center">ジャンル編集</h4>
+      </div>
+    </div>
+    </br>
+    </br>
+    <div class="row">
+      <div class="col-md-5 col-md-offset-1">
+        <% if @genre.errors.any? %>
+          <div class="alert-warning">
+            <div class="alert1">
+              <p><%= pluralize(@genre.errors.count, "error") %></p>
+            </div>
+            <ul>
+              <% @genre.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>      
+        <%= form_for(@genre, url:admin_genre_path) do |f| %>
+          <div class="form-group">
+            <%= f.label 'ジャンル'%>
+            <%= f.text_field :name %>
+            <%= f.radio_button :is_active, :Availble %>
+            <%= f.label '有効' %>
+            <%= f.radio_button :is_active, :Invalid %>
+            <%= f.label '無効' %>
+            <%= f.submit '変更を保存する', class:"btn btn-info btn-md" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>

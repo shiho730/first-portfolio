@@ -10,8 +10,8 @@
               <table class="table">
                 <div class="form-group">
                   <tr>
-                    <th class="table-noborder" width="120">管理者名</th>
-                    <td class="table-noborder" ><%= f.text_field :name, autofocus: true, id:"form" %></td>
+                    <th class="table-noborder" width="120">メールアドレス</th>
+                    <td class="table-noborder" ><%= f.email_field :email, autofocus: true, id:"form" %></td>
                   </tr>
                 </div>
                 <div class="form-group">
@@ -24,9 +24,8 @@
             </div>
 
             <div class="col-md-12 text-center" >
-              <%= f.submit "ログイン", class: "btn btn-primary" %></td>
+              <%= f.submit "ログイン", class: "btn btn-primary btn-lg" %></td>
             </div>
       <% end %>
     </div>
   </div>
-  

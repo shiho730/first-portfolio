@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.integer :genre_id
       t.string :name
       t.string :image_id
-      t.text :discription
+      t.text :description
       t.integer :price_excluding_tax
       t.boolean :is_active,  null: false, default: true
       t.timestamps
