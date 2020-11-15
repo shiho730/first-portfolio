@@ -15,8 +15,8 @@ class Public::ItemsController < ApplicationController
   end
 
   def top
-    @items = Item.order("RANDOM()").limit(4)
-    @genres = Genre.all
+    #@items = Item.order("RANDOM()").limit(4)
+    #@genres = Genre.all
   end
 
   def about
