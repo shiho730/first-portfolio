@@ -22,7 +22,7 @@ class Admin::ItemsController < ApplicationController
     else
       flash[notice] = "商品登録ができませんでした"
       render :new
-      
+
     end
   end
 
@@ -44,7 +44,7 @@ class Admin::ItemsController < ApplicationController
   private
 
   def product_params
-    params.require(:item).permit(:is_active, :name, :discription, :price_excluding_tax, :genre_id, :image_id)
+    params.require(:item).permit(:is_active, :name, :description, :price_excluding_tax, :genre_id, :image_id)
   end
 
 end

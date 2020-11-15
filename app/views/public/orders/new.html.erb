@@ -1,0 +1,158 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-3 col-md-offset-1">
+			<h3 class="text-center", style="background-color: #EEEEEE;">注文情報確認</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		</br>
+		<div class="col-md-8">
+			<!--↓カート内の商品確認-->
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr class="info">
+						<th>商品名</th>
+						<th>単価(税込)</th>
+						<th>数量</th>
+						<th>小計</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @sum = 0 %>
+					<% @cart_items.each do |cart| %>
+						<tr id="cart-<%= cart.id %>">
+							<td class="text-left">
+								<%= attachment_image_tag( cart.item, :image, size: "55x43", fallback: "no_image.jpg") %>
+								<%= cart.item.name %>
+							</td>
+							<!--単価税込-->
+							<td class="text-right">
+								¥<%= cart.item.including_tax.to_s(:delimited) %>
+							</td>
+							<td>
+								<!--数量-->
+								<%= cart.quantity %>
+							</td>
+							<!--小計-->
+							<td class="text-right" id='price_including_tax-<%= cart.id %>'>
+									¥<%= cart.item.including_tax * cart.quantity %>
+							</td>
+						</tr>
+						<!--合計金額-->
+						<% @sum += cart.item.including_tax * cart.quantity  %>
+
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-4">
+			<table class="table table-hover table-bordered">
+				<tr class="">
+					<th class="info">送料</th>
+					<td class="text-right">
+							¥<%= @shipping_fee %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info">商品合計</th>
+					<td class="text-right">
+							¥<%= @sum %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info">請求金額</th>
+					<td class="text-right" %>
+							¥<%= @sum + @shipping_fee %>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+<!--↓支払方法の確認-->
+	<div class="row">
+		<table class="table">
+			<tr>
+				<th class="table-noborder font-weight-bold">
+					支払方法
+				</th>
+				<td class="table-noborder">
+					<% if @order_info.payment_method == "credit" %>
+						クレジットカード
+					<% elsif @order_info.payment_method == "bank" %>
+						銀行振り込み
+					<% else %>
+						入力されていません
+					<% end %>
+				</td>
+			</tr>
+
+			<!--↓お届け先の確認-->
+			<tr>
+				<th class="table-noborder font-weight-bold">
+					お届け先
+				</th>
+				<td class="table-noborder">
+					<% if params["radio"] == "r1" %>
+						<%= current_customer.zip_code %>
+					　<%= current_customer.address %>
+					　<%= current_customer.name %>
+					<% elsif params["radio"] == "r2" %>
+						<%= @shipping_address.postal_code %>
+					　<%= @shipping_address.address %>
+					　<%= @shipping_address.name %>
+					<% elsif params["radio"] == "r3" %>
+						<%= @order_info.postal_code %>
+					　<%= @order_info.address %>
+					　<%= @order_info.name %>
+					<% else %>
+						入力されていません
+					<% end %>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!--購入確定-->
+	<div class="row field text-center">
+		<%= form_with model:@order, url: "/orders", method: :post, class: "form-horizontal", local: true do |f| %>
+
+			<!--自分の住所を選んでいるのでcurrent_customerからデータ取得-->
+			<% if params["radio"] == "r1" %>
+				<%= f.hidden_field :postal_code, value: current_customer.zip_code %>
+				<%= f.hidden_field :address, value: current_customer.address %>
+				<%= f.hidden_field :name, value: current_customer.name %>
+
+			<!--配送先一覧を選んでいるので、f.collection_selectで受け取ったidで配送先一覧からデータ取得-->
+			<% elsif params["radio"] == "r2" %>
+				<%= f.hidden_field :postal_code, value: @shipping_address.postal_code %>
+			　<%= f.hidden_field :address, value: @shipping_address.address %>
+			　<%= f.hidden_field :name, value: @shipping_address.name %>
+
+			<!--新しく入力しているので、f.text_fieldで受け取ったものからデータ取得-->
+			<% elsif params["radio"] == "r3" %>
+				<%= f.hidden_field :postal_code, value: @order_info.postal_code %>
+			　<%= f.hidden_field :address, value: @order_info.address %>
+			　<%= f.hidden_field :name, value: @order_info.name %>
+			　<!--配送先に新規登録する用のデータ-->
+				<%= f.hidden_field :postal_code, value: @order_info.postal_code %>
+			　<%= f.hidden_field :address, value: @order_info.address %>
+			　<%= f.hidden_field :name, value: @order_info.name %>
+			<% end %>
+
+			<!--↓宛先以外の共通情報-->
+			<%= f.hidden_field :customer_id, value: current_customer.id %>
+			<%= f.hidden_field :shipping_fee, value: @shipping_fee %>
+			<%= f.hidden_field :total_payment, value: (@sum + @shipping_fee) %>
+			<%= f.hidden_field :payment_method, value: @order_info.payment_method %>
+
+			<%= f.submit "購入を確定する", class: "btn btn-success" %>
+
+		<% end %>
+	</div>
+</div>

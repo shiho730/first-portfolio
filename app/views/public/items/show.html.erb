@@ -3,7 +3,7 @@
 	<div class="row">
 
 		<div class="col-md-2">
-			<%= render "genres_list", genres: @genres %>
+			<%#= render "genres_list", genres: @genres %>
 		</div>
 
 		<div id="product">
@@ -16,7 +16,7 @@
 			<div class="col-md-5">
 				</br>
 				<h3><%= @item.name %></h3></br>
-				<%= @item.discription %></br>
+				<%= @item.description %></br>
 				<h4>￥<%= @item.including_tax.to_s(:delimited) %>(税込)</h4>
 			</div>
 

@@ -1,0 +1,128 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-3 col-md-offset-1", style="background-color: #EEEEEE;">
+			<h3>注文履歴詳細</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		</br>
+		<div class="col-md-6">
+			<p class="font-weigt-bold">注文情報</p>
+			<table class="table table-hover table-bordered">
+				<tr class="">
+					<th class="info">注文日</th>
+					<td>
+						<%= @order.created_at.strftime('%Y/%m/%d') %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info">配送先</th>
+					<td>
+						<%= @order.postal_code %></br>
+						<%= @order.address %></br>
+						<%= @order.name %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info">支払方法</th>
+					<td>
+						<% if @order.payment_method == "credit" %>
+							クレジットカード
+						<% elsif @order.payment_method == "bank" %>
+							銀行振り込み
+						<% else %>
+							エラー
+						<% end %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info">ステータス</th>
+					<td>
+						<% if @order.status == "waiting" %>
+							入金待ち
+						<% elsif @order.status == "paid" %>
+							入金確認
+						<% elsif @order.status == "making" %>
+							制作中
+						<% elsif @order.status == "preparing" %>
+							発送準備中
+						<% elsif @order.status == "sent" %>
+							発送済み
+						<% else %>
+							エラー
+						<% end %>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-md-4">
+			<p class="font-weigt-bold">請求情報</p>
+			<table class="table table-hover table-bordered">
+				<tr class="">
+					<th class="info">商品合計</th>
+					<td class="text-right">
+							¥<%= (@order.total_payment - @order.shipping_fee).to_s(:delimited) %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info">配送料</th>
+					<td class="text-right">
+							¥<%= @order.shipping_fee.to_s(:delimited) %>
+					</td>
+				</tr>
+
+				<tr class="">
+					<th class="info font-weigt-bold">ご請求額</th>
+					<td class="text-right" %>
+							¥<%= @order.total_payment.to_s(:delimited) %>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-10">
+			<p class="font-weigt-bold">注文内容</p>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr class="info">
+						<th>商品</th>
+						<th>単価(税込)</th>
+						<th>個数</th>
+						<th>小計</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @ordered_items.each do |ordered_item| %>
+						<tr>
+							<td class="text-left">
+								<%= ordered_item.item.name %>
+							</td>
+							<!--単価税込-->
+							<td class="text-right">
+								¥<%= ordered_item.item.including_tax.to_s(:delimited) %>
+							</td>
+							<!--数量-->
+							<td class="text-left">
+								<%= ordered_item.amount %>
+							</td>
+							<!--小計-->
+							<td class="text-right">
+								¥<%= (ordered_item.item.including_tax * ordered_item.amount).to_s(:delimited) %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
