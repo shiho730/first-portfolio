@@ -14,12 +14,12 @@
 	<div class="row">
 		<h2>商品編集</h2>
 
-		<%= form_with model:@item, url: admin_product_path, method: :patch, class: "form-horizontal", local: true do |f| %>
+		<%= form_with model:@item, url: admin_item_path, method: :patch, class: "form-horizontal", local: true do |f| %>
 
 		<div class="col-md-3">
 			<div class="field">
-					 	<%= attachment_image_tag(@item, :image_id, fallback: "no_image.jpg", size: "250x250") %>
-						<%= f.attachment_field :image_id, class: "user_image" %>
+					 	<%= attachment_image_tag(@item, :image, fallback: "no_image.jpg", size: "250x250") %>
+						<%= f.attachment_field :image, class: "user_image" %>
 			</div>
 		</div>
 
