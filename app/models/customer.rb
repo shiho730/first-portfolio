@@ -18,6 +18,8 @@ class Customer < ApplicationRecord
   has_many :cart_items
   has_many :orders
   has_many :shipping_addresses
+  has_many :likes, dependent: :destroy
+  has_many :liked_items, through: :likes, source: :items
 
   enum is_deleted: {Availble: false, Invalid: true}
 

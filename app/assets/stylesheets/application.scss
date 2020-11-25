@@ -15,3 +15,190 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Serif JP', serif;
+}
+
+
+.main {
+  margin-top: 100px;
+  padding-bottom: 200px;
+}
+.container{
+  padding-top: 100px;
+  margin-top: -100px;
+}
+
+
+a {
+  margin: 0px;
+  padding: 0px;
+}
+a:link	{
+	color : #000000;
+	text-decoration: none;
+}
+a:visited	{
+	color : #000000;
+}
+.logo {
+  position: fixed;
+  top: 10px;
+  font-family: 'Caveat', cursive;
+  font-size: 50px;
+}
+.navbar{
+  position: fixed;
+  background-color: #fff;
+  z-index: 10;
+  width: 100%;
+  height: 100px;
+}
+.wrap {
+  position: relative;
+  left: 10px;
+  right: 10px;
+  background: url('jewelry.jpg') no-repeat;
+  height: 500px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  margin: 30px;
+
+}
+
+.header-title {
+  color: #fff;
+  position: absolute;
+  left: 10%;
+  top: 200px;
+  z-index: 2; /*必ず必要*/
+  }
+
+.toppage-head{
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+.item-wrap {
+  display: -webkit-flex;
+  display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 30px;
+}
+
+.item-box {
+  width: 200px;
+  height: 300px;
+  padding: 0px;
+  margin: 0px;
+}
+.item-details {
+  text-align: center;
+}
+
+@charset "UTF-8";
+
+/* ---------------------------- */
+/* ---- ハンバーガーアイコン ---- */
+#hm-icon {
+  position: fixed;
+  right: 150px;
+  top: 43px;
+  z-index: 10;
+}
+.menu-trigger,
+.menu-trigger span {
+  display: inline-block;
+  transition: all .4s;
+  box-sizing: border-box;
+}
+.menu-trigger {
+  position: relative;
+  width: 30px;
+  height: 22px;
+}
+.menu-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  border-radius: 4px;
+}
+.menu-trigger span:nth-child(1) {
+  top: 0;
+}
+.menu-trigger span:nth-child(2) {
+  top: 10px;
+}
+.menu-trigger span:nth-child(3) {
+  bottom: 0;
+}
+.menu-trigger.active span:nth-child(1) {
+  -webkit-transform: translateY(1px) rotate(-45deg);
+  transform: translateY(1px) rotate(-45deg);
+  background-color: black;
+}
+.menu-trigger.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-trigger.active span:nth-child(3) {
+  -webkit-transform: translateY(-20px) rotate(45deg);
+  transform: translateY(-20px) rotate(45deg);
+  background-color: black;
+}
+/* ------------------------ */
+/* ------ spメニュー ------ */
+/* ------------------------ */
+#sp-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #fff;
+  width: 40%;
+  min-height: 50%;
+  display: none;
+  z-index: 9;
+  text-align: center;
+}
+#sp-menu li {
+  text-align: center;
+  margin-bottom: 30px;
+}
+#sp-menu a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+li {
+  list-style: none;
+}
+
+.page-head{
+  text-align: center;
+  font-size: large;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.about{
+   text-align: center;
+
+}
+footer {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 13px;
+}

@@ -1,30 +1,31 @@
-<!-- ジャンル検索 -->
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-      <%#= render "genres_list", genres: @genres %>
-    </div>
-    <div class="col-md-10">
-      <h3 class="item-index">商品一覧（全<%= @items_n.count %>件）</h3>
-      <div id="item">
-        <% @items.each do |item| %>
-          <div class="col-md-3">
-            <table>
-              <tr>
-                <td>
-                  <%= link_to item_path(item) do %>
-                    <%= attachment_image_tag item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "200x100" %>
-                  <% end %><br>
-                  <%= item.name %><br>
-                  <%= item.including_tax.to_s(:delimited) %>円
-                </td>
-              </tr>
-            </table>
+    <div class="page-head">All Products（<%= @items_n.count %>）</div>
+      <hr width="100%" align="center" color="gray">
+        <div class="item-wrap">
+          <% @items.each do |item| %>
+            <div class="item-box">
+              <%= link_to item_path(item), class: "btn-link", :style=>"color:0099FF;"  do %>
+              <span id="img_field" class="item">
+                <%= attachment_image_tag item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "200x250" %>
+              </span>
+              <p></p>
+              <div class="item-details">
+                <p><%= item.name %></p>
+              <% end %>
+              <!--商品価格-->
+              <% if item.is_active == "Availble" %>
+                <p>
+                  ¥<%= item.including_tax.to_s(:delimited) %>
+                </p>
+              <% elsif item.is_active == "Invalid" %>
+                <p class="soldout">sold out</p>
+              <% end %>
           </div>
-        <% end %>
+         </div>
+       <% end %>
       </div>
-      <!-- １ページに８件表示する -->
-      <%= paginate @items %>
-    </div>
+            <!-- １ページに８件表示する -->
+    <%= paginate @items %>
   </div>
 </div>

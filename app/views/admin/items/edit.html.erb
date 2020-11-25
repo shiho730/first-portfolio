@@ -18,8 +18,8 @@
 
 		<div class="col-md-3">
 			<div class="field">
-					 	<%= attachment_image_tag(@item, :image, fallback: "no_image.jpg", size: "250x250") %>
-						<%= f.attachment_field :image, class: "user_image" %>
+				<%= attachment_image_tag(@item, :image, fallback: "no_image.jpg", size: "200x250") %>
+				<%= f.attachment_field :image, class: "user_image" %>
 			</div>
 		</div>
 
@@ -37,7 +37,7 @@
 					<label class="col-md-2 control-label" for="InputEmail">商品説明</label>
 								<div class="col-md-8">
 
-					<%= f.text_area :description, class: "discription col-md-10" %>
+					<%= f.text_area :description, class: "description col-md-10" %>
 					</div>
 				</div>
 

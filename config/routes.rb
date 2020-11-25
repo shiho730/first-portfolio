@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   scope module: :public do
     get 'customers/quit'
     patch 'customers/out'
-    resource :customers, only: [:show, :edit, :update]
+    resource :customers, only: [:show, :edit, :update] do
+      resource :likes, only: [:create, :destroy]
+    end
   end
 
   devise_for :customers, controllers: {
@@ -61,10 +63,12 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'items#top'
     get 'about' => 'items#about'
+    get 'rank' => 'items#rank'
     get 'items/genre/:genre_id' => 'items#genre', as: "genre"
-    resources :items, only: [:index, :show]
+    resources :items, only: [:index, :show] do
+      resource :likes, only: [:create, :destroy]
+    end
   end
-
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
