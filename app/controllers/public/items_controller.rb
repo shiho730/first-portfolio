@@ -1,5 +1,5 @@
 class Public::ItemsController < ApplicationController
-  
+
   def index
     @genres = Genre.all
     @items = Item.where(is_active: "Availble").page(params[:page]).per(8)
@@ -15,10 +15,14 @@ class Public::ItemsController < ApplicationController
   end
 
   def top
-    #@items = Item.order("RANDOM()").limit(4)
-    #@genres = Genre.all
+    @items = Item.order("RANDOM()").limit(4)
+    @genres = Genre.all
   end
 
   def about
+  end
+  
+  def rank
+    @items = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
   end
 end

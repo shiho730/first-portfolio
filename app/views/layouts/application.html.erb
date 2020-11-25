@@ -1,53 +1,97 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Millure</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <html lang="ja">
+    <head>
+      <title>míllure</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Katibeh&display=swap" rel="stylesheet">
+      <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="stylesheet" href="stylesheets/application.scss" />
 
-  <body>
-      <header class="navbar navbar-inverse">
+
+    </head>
+
+    <body>
+      <header class="navbar navbar">
         <div class="container">
-          <nav class='nav navbar-nav navbar-left'>
-
-          <%= link_to root_path do %>
-            <span><%#= image_tag "", :size => "280x100" %></span>
-          <% end %>
-
+          <nav class='nav navbar-nav navbar-left' style="background-color: #fff">
+            <a class="logo" href="https://5c5f93c91cf54035a9319a7fc54f076b.vfs.cloud9.ap-northeast-1.amazonaws.com/">
+              míllure
+            </a>
           </nav>
-            <nav>
-              <ul class="nav navbar-nav navbar-right" style="margin-top: 45px;">
-                <% if admin_signed_in? %>
-                  <li><%= link_to "商品一覧", admin_items_path %></li>
-                  <li><%= link_to "会員一覧", admin_customers_path %></li>
-                  <li><%= link_to "注文履歴一覧", admin_orders_path %></li>
-                  <li><%= link_to "ジャンル一覧", admin_genres_path %></li>
-                  <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
-                <% elsif customer_signed_in? %>
+          <nav>
+            <ul class="nav navbar-nav navbar-right" style="margin-top: 45px;">
+              <a class="fas fa-shopping-cart fa-lg" href="/cart_items" style="margin-right: 120px"></a>
+              <div id="sp-menu">
+                <h2>MENU</h2>
+                  <ul>
+                    <% if admin_signed_in? %>
+                      <li><%= link_to "商品一覧", admin_items_path %></li>
+                      <li><%= link_to "会員一覧", admin_customers_path %></li>
+                      <li><%= link_to "注文履歴一覧", admin_orders_path %></li>
+                      <li><%= link_to "ジャンル一覧", admin_genres_path %></li>
+                      <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+                    <% elsif customer_signed_in? %>
+                      <li>
+                        <h4 style="margin-top: 25px;">ようこそ、<%= current_customer.name %>さん！</h4>
+                      </li>
+                      <li><%= link_to "about", about_path %></li>
+                      <li><%= link_to "shop all", items_path %></li>
+                      <li><%= link_to "top seller", rank_path %></li>
+                      <li><%= link_to "necklaces", cart_items_path %></li>
+                      <li><%= link_to "earrings", cart_items_path %></li>
+                      <li><%= link_to "bracelets", cart_items_path %></li>
+                      <li><%= link_to "rings", cart_items_path %></li>
+                      <li><%= link_to "cart", cart_items_path %></li>
+                      <li><%= link_to "my page", customers_path %></li>
+                    　<li><%= link_to "logout", destroy_customer_session_path, method: :delete %></li>
+                    <% else %>
+                      <li><%= link_to "about", about_path %></li>
+                      <li><%= link_to "shop all", items_path %></li>
+                      <li><%= link_to "new customer", new_customer_registration_path %></li>
+                      <li><%= link_to "login", new_customer_session_path %></li>
+                    <% end %>
+                  </ul>
+              </div>
 
-                  <li>
-                    <h4 style="color: white; margin-top: 15px;">ようこそ、<%= current_customer.name %>さん！</h4>
-                  </li>
-
-                  <li><%= link_to "マイページ", customers_path %></li>
-                  <li><%= link_to "商品一覧", items_path %></li>
-                  <li><%= link_to "カート", cart_items_path %></li>
-                  <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete %></li>
-                <% else %>
-                  <li><%= link_to "about", about_path %></li>
-                  <li><%= link_to "商品一覧", items_path %></li>
-                  <li><%= link_to "新規登録", new_customer_registration_path %></li>
-                  <li><%= link_to "ログイン", new_customer_session_path %></li>
-                <% end %>
+              <div id="hm-icon">
+                <a class="menu-trigger" href="#">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </a>
+              </div>
+              <script src="js/jquery.min.js"></script>
+              <script src="js/script.js"></script>
               </ul>
             </nav>
+          </div>
+        </header>
+      <div class="main">
+        <%= yield %>
+      </div>
+      <footer>
+        <hr width="90%" align="center" color="gray">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              About
+            </div>
+            <div class="col-md-6">
+              Connect
+            </div>
+          </div>
         </div>
-  </header>
-  <div class="body">
-    <%= yield %>
-  </body>
+        <hr width="90%" align="center" color="gray">
+        <p class="footer-text">© 2020 míllure.</p>
+      </footer>
+    </body>
+  </html>
 </html>

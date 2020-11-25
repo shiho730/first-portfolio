@@ -1,22 +1,32 @@
-<% provide(:title, "サイトについて") %>
-
-<div class="about container">
-  <div class="title">About</div>
-    <h3>
-              míllureからはじまる新たなstory
-        
-        先入観や大人の価値観から解き放たれた時、
-        まだ知らない新たなstoryが始まる
-        
-        物語りの主人公はいつだってわたし
-        
-                   mí × allure = míllure
-        
-        新たな『わたしの魅力』を引き出すという
-        想いを込めて姉妹で立ち上げたブランドです。
-        
-        míllureはアクセサリーを通し多彩なstoryをご提案いたします
-
-    </h3>
-        <!--<img src="/assets/food-3060458_1920.jpg" width="470" height="300">-->
+<div class="container">
+  <div class="row">
+    <div class="page-head">About us</div>
+      <hr width="100%" align="center" color="gray">
+        <div class="pull-left">
+          <%= video_tag("/videos/about1.mp4", autoplay: :true, loop: :true, muted: :true, class: 'video-content') %>
+        </div>
+  </div>
+        <div class="row">
+          <p class="text-center">
+              <br>
+              〜míllure（ミリュール）からはじまる新たなstory〜<br>
+              <br>
+              先入観や大人の価値観から解き放たれた時、<br>
+              まだ知らない新たなstoryが始まる<br>
+              物語の主人公はいつだってわたし<br>
+              <br>
+              mí × allure = míllure<br>
+              <br>
+              新たな『わたしの魅力』を引き出すという<br>
+              想いを込めて立ち上げたブランドです。<br>
+              míllureはアクセサリーを通し多彩なstoryをご提案いたします<br>
+              <br>
+          </p>
+        </div>
+      <div class="row">
+        <div class="pull-right">
+          <%= video_tag("/videos/about2.mp4", autoplay: :true, loop: :true, muted: :true, class: 'video-content') %>
+        </div>
+      </div>
+  </div>
 </div>
