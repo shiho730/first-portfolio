@@ -15,13 +15,13 @@ class Public::ItemsController < ApplicationController
   end
 
   def top
-    @items = Item.order("RANDOM()").limit(4)
+    @items = Item.all.limit(4)
     @genres = Genre.all
   end
 
   def about
   end
-  
+
   def rank
     @items = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
   end
