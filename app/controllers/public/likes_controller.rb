@@ -13,4 +13,13 @@ class Public::LikesController < ApplicationController
     like.destroy
     redirect_to item_path(item)
   end
+  
+  def show
+    if @item.reviews.blank?
+      @average_review = 0
+    else
+      @average_review = @item.reviews.average(:rating).round(2)
+    end
+  end
+# @average_reviewのインスタンス変数を設定
 end

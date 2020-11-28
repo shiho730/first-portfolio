@@ -6,11 +6,11 @@
           <% @items.each do |item| %>
             <div class="item-box">
               <%= link_to item_path(item), class: "btn-link", :style=>"color:0099FF;"  do %>
-              <span id="img_field" class="item">
-                <%= attachment_image_tag item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "200x250" %>
-              </span>
-              <p></p>
-              <div class="item-details">
+                <span id="img_field" class="item">
+                  <%= attachment_image_tag item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "200x250" %>
+                </span>
+                <p></p>
+                <div class="item-details">
                 <p><%= item.name %></p>
               <% end %>
               <!--商品価格-->
@@ -21,11 +21,11 @@
               <% elsif item.is_active == "Invalid" %>
                 <p class="soldout">sold out</p>
               <% end %>
-          </div>
-         </div>
-       <% end %>
+                </div>
+           </div>
+          <% end %>
       </div>
-            <!-- １ページに８件表示する -->
+      <!-- １ページに８件表示する -->
     <%= paginate @items %>
   </div>
 </div>

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get   'inquiry'         => 'inquiry#index'     # 入力画面
+  post  'inquiry/confirm' => 'inquiry#confirm'   # 確認画面
+  post  'inquiry/thanks'  => 'inquiry#thanks'    # 送信完了画面
+
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',
@@ -69,6 +73,11 @@ Rails.application.routes.draw do
       resource :likes, only: [:create, :destroy]
     end
   end
+
+  scope module: :public do
+    resources :reviews, only: [:create]
+  end
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
