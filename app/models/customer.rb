@@ -20,6 +20,7 @@ class Customer < ApplicationRecord
   has_many :shipping_addresses
   has_many :likes, dependent: :destroy
   has_many :liked_items, through: :likes, source: :items
+  has_many :reviews, dependent: :destroy
 
   enum is_deleted: {Availble: false, Invalid: true}
 

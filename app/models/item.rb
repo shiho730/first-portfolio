@@ -3,11 +3,12 @@ class Item < ApplicationRecord
   has_many :ordered_items
   has_many :likes, dependent: :destroy
   has_many :liked_customers, through: :likes, source: :customer
-  
+  has_many :reviews, dependent: :destroy
+
   def liked_by?(customer)
     likes.where(customer_id: customer.id).exists?
   end
-  
+
   belongs_to :genre
 
   attachment :image

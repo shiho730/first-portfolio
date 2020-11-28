@@ -1,7 +1,6 @@
 class Public::ItemsController < ApplicationController
 
   def index
-    @genres = Genre.all
     @items = Item.where(is_active: "Availble").page(params[:page]).per(8)
     @items_n = Item.where(is_active: "Availble")
   end
@@ -10,13 +9,17 @@ class Public::ItemsController < ApplicationController
   end
 
   def show
-    @genres = Genre.all
     @item = Item.find(params[:id])
+
+    if @item.reviews.blank?
+      @average_review = 0
+    else
+      @average_review = @item.reviews.average(:rating).round(2)
+    end
   end
 
   def top
     @items = Item.all.limit(4)
-    @genres = Genre.all
   end
 
   def about
