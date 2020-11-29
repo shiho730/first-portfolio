@@ -10,7 +10,7 @@ class Public::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @items = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
+    #@items = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
     @review = Review.new
     @reviews = @item.reviews.limit(5)
     if @item.reviews.blank?
@@ -22,13 +22,16 @@ class Public::ItemsController < ApplicationController
 
   def top
     @items = Item.all.limit(4)
-    @item = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
+    #@item = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
+                                             # 各投稿のいいね数を比較して昇順で並び替えている
+
+    @item = Item.find(Like.group(:item_id).order('count(item_id) desc').limit(4).pluck(:item_id))
   end
 
   def about
   end
 
   def rank
-    @items = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
+    @items = Item.find(Like.group(:item_id).order('count(item_id) desc').limit(8).pluck(:item_id))
   end
 end

@@ -1,4 +1,3 @@
-<% provide(:title, "トップ") %>
 <div class="container">
   <div class="row">
     <div class="col-md-9">
@@ -19,32 +18,21 @@
   </div>
 
   <div class="row">
-     <a href="/rank">
+    <!--ベストセラー-->
+    <a href="/rank">
        <h4 class="toppage-head">top seller</h4>
-     </a>
-        <!--ベストセラー-->
-        <% @item.each do |item| %>
-          <div class="col-md-3">
-            <table>
-              <tr>
-                <td>
-                  <%= link_to item_path(item) do %>
-                    <%= attachment_image_tag item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "200x250" %>
-                  <% end %><br>
-                    <%= item.name %><br>
-                    <%= item.including_tax.to_s(:delimited) %>
-                </td>
-              </tr>
-            </table>
-          </div>
-        <% end %>
+    </a>
+    <%= render "rank", item: @item %>
   </div>
-  <div class="row">
-      <h4 class="toppage-head">new collection</h4>
-        <!--新しく追加されたアクセサリーを入れる-->
-        <%= render "item_each", items: @items %>
-  </div>
-    <%= link_to "more ", items_path, class: "btn-link  pull-right" %>
 
+  <div class="row">
+    <!--アクセサリーを入れる-->
+    <a href="/items">
+      <h4 class="toppage-head">collection</h4>
+    </a>
+    <%= render "item_each", items: @items %>
+  </div>
+
+  <%= link_to "more ", items_path, class: "btn-link  pull-right" %>
 </div>
 

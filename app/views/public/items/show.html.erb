@@ -16,7 +16,7 @@
                </br>
                <!--↓ログインしている場合のみいいね、カート、レビューフォームが表示される-->
                <!--いいね機能-->
-               <% if current_customer.present %>
+               <% if customer_signed_in? %>
                   <% if @item.liked_by?(current_customer) %>
                      <li>
                         <%= link_to item_likes_path(@item), method: :delete do %>
