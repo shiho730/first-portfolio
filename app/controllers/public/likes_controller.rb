@@ -14,12 +14,6 @@ class Public::LikesController < ApplicationController
     redirect_to item_path(item)
   end
 
-  # def show
-  #   @customer = Customer.find(params[:id])
-  #   @items = @customer.items
-  #   likes = Like.where(customer_id: current_customer.id).pluck(:item_id)  # ログイン中のユーザーのお気に入りのitem_idカラムを取得
-  #   @like_list = Item.find(items)    # itemsテーブルから、お気に入り登録済みのレコードを取得
-  # end
 
 
 end

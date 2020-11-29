@@ -14,58 +14,63 @@
                ￥<%= @item.including_tax.to_s(:delimited) %>(税込)
                </br>
                </br>
+               <!--↓ログインしている場合のみいいね、カート、レビューフォームが表示される-->
                <!--いいね機能-->
-               <% if @item.liked_by?(current_customer) %>
-                  <li>
-                     <%= link_to item_likes_path(@item), method: :delete do %>
-                     <i class="fas fa-heart" aria-hidden="true"></i>
-                     <%= @item.likes.count %>
-                  <% end %>
-                  </li>
-                  <% else %>
-                  <li>
-                  <%= link_to item_likes_path(@item), method: :post do %>
-                     <i class="far fa-heart" aria-hidden="true"></i>
-                     <%= @item.likes.count %>
-                  <% end %>
-                     </li>
-               <% end %>
-
-            <!--↓ログインしている場合のみカートに入れるフォームが表示される-->
-            </br>
-            <% if customer_signed_in? %>
-               <% if @item.is_active == "Availble" %>
-                  <%= form_with model:@cart_item, url: "/cart_items", method: :post, class: "form-horizontal", local: true do |f| %>
-                     <div class="col-md-5">
-                        <%= f.hidden_field :item_id, value: params[:id] %>
-                        <%= f.hidden_field :customer_id, value: current_customer.id %>
-                        <%= f.select :quantity, {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}, { include_blank: "quantity"}, { class: "form-control" , required: true } %>
-                     </div>
-                     </br></br>
-                     <div class="col-md-5">
-                        <%= f.submit "Add to Cart", class: "btn btn-dark btn-block" %>
-                     </div>
+               <% if customer_signed_in? %>
+                  <% if @item.liked_by?(current_customer) %>
+                     <li>
+                        <%= link_to item_likes_path(@item), method: :delete do %>
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                        <%= @item.likes.count %>
                         <% end %>
-               <% else %>
+                     </li>
+                  <% else %>
+                     <li>
+                     <%= link_to item_likes_path(@item), method: :post do %>
+                        <i class="far fa-heart" aria-hidden="true"></i>
+                        <%= @item.likes.count %>
+                     <% end %>
+                        </li>
+                  <% end %>
+                     </br>
+                  <% if @item.is_active == "Availble" %>
+                     <%= form_with model:@cart_item, url: "/cart_items", method: :post, class: "form-horizontal", local: true do |f| %>
+                        <div class="col-md-5">
+                           <%= f.hidden_field :item_id, value: params[:id] %>
+                           <%= f.hidden_field :customer_id, value: current_customer.id %>
+                           <%= f.select :quantity, {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}, { include_blank: "quantity"}, { class: "form-control" , required: true } %>
+                        </div>
+                        </br></br>
+                        <div class="col-md-5">
+                           <%= f.submit "Add to Cart", class: "btn btn-dark btn-block" %>
+                        </div>
+                     <% end %>
+                  <% else %>
                         <div class="col-md-5 col-md-offset-7">
                            申し訳ございません。</br>こちらの商品はただ今、品切れになっております。
                         </div>
+                  <% end %>
+
+                     </br></br></br>
+
+                  <!--レビュー投稿フォーム-->
+                     <%= render 'public/reviews/form', review: @review, item: @item %>
+                              <%# 末尾に記載 %>
+                  <script>
+                    $('.review-rating').raty({
+                      readOnly: true,
+                     starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      score: function() {
+                        return $(this).attr('data-score');
+                      },
+                    });
+                  </script>
+                  </div>
                <% end %>
-            <% end %>
-            </br></br></br>
-            <%= render 'public/reviews/form', review: @review, item: @item %>
-                     <%# 末尾に記載 %>
-         <script>
-           $('.review-rating').raty({
-             readOnly: true,
-            starOn: "<%= asset_path('star-on.png') %>",
-             starOff: "<%= asset_path('star-off.png') %>",
-             score: function() {
-               return $(this).attr('data-score');
-             },
-           });
-         </script>
-         </div>
+   </div>
+   <div class="row">
+      <!--レビュー一覧-->
+      <%= render 'public/reviews/review_each', item: @item %>
    </div>
 </div>
-<%= render 'public/reviews/review_each', item: @item %>

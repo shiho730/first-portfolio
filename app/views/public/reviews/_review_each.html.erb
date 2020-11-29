@@ -1,9 +1,28 @@
-<div class="col-md-5">
-  レビュー一覧
-  <% item.reviews.each do |review| %>
+</br><div class="row" style="text-align:center">
+  <h5>~Total Reviews~</h5>
+    <div class="average-review-rating" data-score=<%= @average_review %>>
+      <span><%= item.reviews.count %> Reviews</span>
+    </div>
+    <hr width="30%" align="center" color="gray">
+
+    <script>
+      $('.average-review-rating').raty({
+        readOnly: true,
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        score: function() {
+          return $(this).attr('data-score')
+        }
+        });
+    </script>
+    <%# jquery発火条件記載 %>
+
+    <% item.reviews.each do |review| %>
       <p></p>
-        <div class="review-rating" data-score="<%= review.rate %>"></div>
-        <p><%= review.title %></p>さん
-        <p><%= review.body %></p>
-  <% end %>
+      <div class="review-rating" data-score="<%= review.rate %>"></div>
+      <p><%= review.title %>さん</p>
+      <p><%= review.body %></p>
+      <hr width="30%" align="center" color="gray">
+    <% end %>
 </div>
