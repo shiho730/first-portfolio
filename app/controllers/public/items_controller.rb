@@ -22,6 +22,7 @@ class Public::ItemsController < ApplicationController
 
   def top
     @items = Item.all.limit(4)
+    @item = Item.includes(:liked_customers).sort {|a,b| b.liked_customers.size <=> a.liked_customers.size}
   end
 
   def about
