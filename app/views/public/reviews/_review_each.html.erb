@@ -1,0 +1,9 @@
+<div class="col-md-5">
+  レビュー一覧
+  <% item.reviews.each do |review| %>
+      <p></p>
+        <div class="review-rating" data-score="<%= review.rate %>"></div>
+        <p><%= review.title %></p>さん
+        <p><%= review.body %></p>
+  <% end %>
+</div>

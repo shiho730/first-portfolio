@@ -1,19 +1,9 @@
-         <%# 末尾に記載 %>
-         <script>
-           $('.review-rating').raty({
-             readOnly: true,
-            starOn: "<%= asset_path('star-on.png') %>",
-             starOff: "<%= asset_path('star-off.png') %>",
-             score: function() {
-               return $(this).attr('data-score');
-             },
-           });
-         </script>
+
 
          <div class="col-sm-8">
            Average Rating
            <div class="average-review-rating" data-score=<%= @average_review %>>
-           <span>Based on <%= @item.reviews.count %> Reviews</span>
+           <span>Based on <%= item.reviews.count %> Reviews</span>
          </div>
          <%# data-scoreに先ほど設定した@average_reviewのインスタンス変数を当てる。 %>
 
@@ -30,7 +20,7 @@
       </script>
       <%# jquery発火条件記載 %>
       </br>
-      <%= form_with model:@item, url: "/reviews", method: :post, class: "form-horizontal", local: true do |f| %>
+      <%= form_with model: review, url: reviews_path, method: :post, class: "form-horizontal", local: true do |f| %>
         <%= f.hidden_field :item_id, value: params[:id] %>
         <%= f.hidden_field :customer_id, value: current_customer.id %>
         <%= f.label :名前 %></br>
@@ -40,14 +30,14 @@
         <div id="rating-form">
           <label>Rating</label>
         </div>
-        </br>
+
         <%= f.submit "レビューを投稿する", class: "btn btn-dark btn-block" %>
       <% end %>
 
       <script>
         $('#rating-form').raty({
           path: '/assets/',
-          scoreName: 'review[rating]'
+          scoreName: 'review[rate]'
         });
       </script>
 

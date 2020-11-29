@@ -70,12 +70,12 @@ Rails.application.routes.draw do
     get 'rank' => 'items#rank'
     get 'items/genre/:genre_id' => 'items#genre', as: "genre"
     resources :items, only: [:index, :show] do
-      resource :likes, only: [:create, :destroy]
+      resource :likes, only: [:create, :destroy, :index]
     end
   end
 
   scope module: :public do
-    resources :reviews, only: [:create]
+    resources :reviews, only: [:create, :destroy, :update, :index, :show]
   end
 
 

@@ -1,5 +1,5 @@
 class Public::LikesController < ApplicationController
-  
+
   def create
     item = Item.find(params[:item_id])
     like = current_customer.likes.new(item_id: item.id)
@@ -13,13 +13,13 @@ class Public::LikesController < ApplicationController
     like.destroy
     redirect_to item_path(item)
   end
-  
-  def show
-    if @item.reviews.blank?
-      @average_review = 0
-    else
-      @average_review = @item.reviews.average(:rating).round(2)
-    end
-  end
-# @average_reviewのインスタンス変数を設定
+
+  # def show
+  #   @customer = Customer.find(params[:id])
+  #   @items = @customer.items
+  #   likes = Like.where(customer_id: current_customer.id).pluck(:item_id)  # ログイン中のユーザーのお気に入りのitem_idカラムを取得
+  #   @like_list = Item.find(items)    # itemsテーブルから、お気に入り登録済みのレコードを取得
+  # end
+
+
 end

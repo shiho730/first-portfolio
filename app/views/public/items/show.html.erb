@@ -32,7 +32,7 @@
                <% end %>
 
             <!--↓ログインしている場合のみカートに入れるフォームが表示される-->
-            </br></br></br>
+            </br>
             <% if customer_signed_in? %>
                <% if @item.is_active == "Availble" %>
                   <%= form_with model:@cart_item, url: "/cart_items", method: :post, class: "form-horizontal", local: true do |f| %>
@@ -53,7 +53,19 @@
                <% end %>
             <% end %>
             </br></br></br>
-            <%= render 'public/reviews/form', reviews: @reviews %>
+            <%= render 'public/reviews/form', review: @review, item: @item %>
+                     <%# 末尾に記載 %>
+         <script>
+           $('.review-rating').raty({
+             readOnly: true,
+            starOn: "<%= asset_path('star-on.png') %>",
+             starOff: "<%= asset_path('star-off.png') %>",
+             score: function() {
+               return $(this).attr('data-score');
+             },
+           });
+         </script>
          </div>
    </div>
 </div>
+<%= render 'public/reviews/review_each', item: @item %>
