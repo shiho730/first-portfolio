@@ -19,7 +19,7 @@
             </br></br>
           <% end %>
 
-          <% @sum = 0 %>
+            <% @sum = 0 %>
             <% @cart_items.each do |cart| %>
 
           		<div id="cart-<%= cart.id %>">
@@ -46,10 +46,9 @@
                   <!--合計金額-->
                   <% @sum += cart.item.including_tax * cart.quantity  %>
                   </div>
-            <% end %>
+              <% end %>
             </div>
           </div>
-
       </div>
 
     <div class="row">
@@ -62,7 +61,7 @@
 
       <div class="col-md-6 billing">
         <table class="text-right">
-          <thead
+          <thead>
             <tr>
               <td class="warning">合計金額</td>
               <td class="text-right" id='total_payment'>
