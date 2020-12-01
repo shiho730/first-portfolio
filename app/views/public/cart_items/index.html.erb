@@ -1,81 +1,68 @@
 <div class="container">
   <div class="row">
-    <!--<div class="col-md-7">-->
-    <!--  <h3 class="head-line title_h2">ショッピングカート</h3>-->
-    <div class="col-md-3">
-      <h3 class="text-center", style="background-color: #EEEEEE;">ショッピングカート</h3>
+    <div class="page-head">My cart</div>
+      <hr width="100%" align="center" color="gray">
     </div>
-    <% if @cart_items.present? %>
-      <div class="col-md-8", style="padding-top: 20px;">
-        <span class="pull-right">
-          <%= link_to " カートを空にする", cart_items_path, method: :delete, data: {confirm: 'カートを空にして本当によろしいですか？'}, class: "glyphicon glyphicon-trash btn btn-danger" %>
-        </span>
-      </div>
-    <% end %>
   </div>
+
 
   <% if @cart_items.present? %>
     <div class="row">
-      <div class="col-xs-11" id="no_cart">
-        </br>
-        <table class="table table-hover table-bordered">
-          <thead>
-            <tr class="info">
-              <th>商品名</th>
-              <th>単価(税込)</th>
-              <th>数量</th>
-              <th>小計</th>
-              <th></th>
-            </tr>
-          </thead>
+      <div id="no_cart">
+        <div class="col-md-6 col-md-offset-3">
+          <% if @cart_items.present? %>
+            <div style="padding-top: 20px;">
+              <span class="pull-right">
+                <%= link_to " カートを空にする", cart_items_path, method: :delete, data: {confirm: 'カートを空にして本当によろしいですか？'}, class: "glyphicon glyphicon-trash btn btn-secondary" %>
+              </span>
+            </div>
+            </br></br>
+          <% end %>
 
-          <tbody>
-            <% @sum = 0 %>
+          <% @sum = 0 %>
             <% @cart_items.each do |cart| %>
-      			  <tr id="cart-<%= cart.id %>">
-                <td class="text-left">
-                  <%= attachment_image_tag( cart.item, :image, size: "55x43", fallback: "no_image.jpg") %>
-                  <%= cart.item.name %>
-                </td>
-                <!--単価税込-->
-                <td class="text-right">
-                  ¥<%= cart.item.including_tax.to_s(:delimited) %>
-                </td>
-                <td>
-                  <!--数量変更ボタン-->
-                  <%= form_for(cart, url: cart_item_path(cart), method: :patch , remote: true)do |f| %>
-                    <%= f.number_field :quantity, class: "quantity", size: 10, min: 1, id: "quantity_cart" %>
-                    <%= f.submit "変更", class: "btn btn-info" %>
-                  <% end %>
-                </td>
-                <!--小計-->
-                <td class="text-right" id='price_including_tax-<%= cart.id %>'>
-                    ¥<%= cart.item.including_tax * cart.quantity %>
-                </td>
-                <td>
-                  <%= link_to " 削除する", cart_item_path(cart), method: :delete, remote: true, data: {confirm: "#{cart.item.name}を削除してよろしいですか？"}, class: "glyphicon glyphicon-trash btn btn-danger" %>
-                </td>
-              </tr>
-              <!--合計金額-->
-              <% @sum += cart.item.including_tax * cart.quantity  %>
 
+          		<div id="cart-<%= cart.id %>">
+                <div class="cart-item">
+                  <div class="cart-item-img">
+                    <%= attachment_image_tag( cart.item, :image, size: "100x100", fallback: "no_image.jpg") %>
+                  </div>
+                    <%= cart.item.name %></br>
+                    <!--単価税込-->
+                    ¥<%= cart.item.including_tax.to_s(:delimited) %>
+                    <!--数量変更ボタン-->
+                    <%= form_for(cart, url: cart_item_path(cart), method: :patch , remote: true)do |f| %>
+                      <%= f.number_field :quantity, class: "quantity", size: 10, min: 1, id: "quantity_cart" %>
+                      <%= f.submit "変更", class: "btn btn-secondary" %>
+                    <% end %>
+
+                    <!--小計-->
+                    <p class="text-right" id='price_including_tax-<%= cart.id %>'>
+                        ¥<%= cart.item.including_tax * cart.quantity %>
+                    </p>
+
+                      <%= link_to " 削除する", cart_item_path(cart), method: :delete, remote: true, data: {confirm: "#{cart.item.name}を削除してよろしいですか？"}, class: "glyphicon glyphicon-trash btn btn-dark" %>
+
+                  <!--合計金額-->
+                  <% @sum += cart.item.including_tax * cart.quantity  %>
+                  </div>
             <% end %>
-          </tbody>
-        </table>
+            </div>
+          </div>
+
       </div>
-    </div>
 
     <div class="row">
       <!-- 買い物を続けるボタン -->
-      <div class="col-md-8 margin-bottom">
+      <div class="col-md-6 margin-bottom">
         <div class ="action">
-          <%= link_to " 買い物を続ける", root_path, class: "glyphicon glyphicon-shopping-cart btn btn-info" %>
+          <%= link_to " 買い物を続ける", root_path, class: "glyphicon glyphicon-shopping-cart btn btn-secondary" %>
         </div>
       </div>
 
-      <div class="col-md-3 billing">
-        <table class="table table-bordered text-right">
-          <thead>
+      <div class="col-md-6 billing">
+        <table class="text-right">
+          <thead
             <tr>
               <td class="warning">合計金額</td>
               <td class="text-right" id='total_payment'>
@@ -90,7 +77,7 @@
     <div class="row">
       <!-- 情報入力に進むボタン -->
       <div class="col-md-4 col-md-offset-4 text-center">
-        <%= link_to " 情報入力に進む", orders_information_path, data: {"turbolinks" => false}, class: "glyphicon glyphicon-pencil btn btn-success center-block" %>
+        <%= link_to " 情報入力に進む", orders_information_path, data: {"turbolinks" => false}, class: "glyphicon glyphicon-pencil btn btn-info btn-sm center-block" %>
       </div>
     </div>
   <% else %>
