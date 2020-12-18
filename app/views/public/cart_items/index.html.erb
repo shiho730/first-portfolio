@@ -11,7 +11,7 @@
           <% if @cart_items.present? %>
             <div style="padding-top: 20px;">
               <span class="pull-right">
-                <%= link_to " カートを空にする", cart_items_path, method: :delete, data: {confirm: 'カートを空にして本当によろしいですか？'}, class: "glyphicon glyphicon-trash btn btn-secondary" %>
+                <%= link_to " カートを空にする", cartitems_path, method: :delete, data: {confirm: 'カートを空にして本当によろしいですか？'}, class: "glyphicon glyphicon-trash btn btn-secondary" %>
               </span>
             </div>
             </br></br>

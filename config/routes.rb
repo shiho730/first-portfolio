@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
+    resources :shipping_addresses, only: [:index, :edit, :create, :update, :destroy]
   end
 
   scope module: :public do
